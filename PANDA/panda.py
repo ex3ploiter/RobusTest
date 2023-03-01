@@ -36,12 +36,12 @@ def train_model(model, train_loader, test_loader, device, args, ewc_loss):
         auc, feature_space = get_score(model, device, train_loader, test_loader, args.attack_type)
         log('Epoch: {}, AUROC is: {}'.format(epoch + 1, auc))
 
-    # pgd_10_adv_auc, pgd_10_adv_auc_in, pgd_10_adv_auc_out, feature_space = get_adv_score(model, device, train_loader, test_loader, 'PGD10')
+    pgd_10_adv_auc, pgd_10_adv_auc_in, pgd_10_adv_auc_out, feature_space = get_adv_score(model, device, train_loader, test_loader, 'PGD10')
     # pgd_100_adv_auc, feature_space = get_adv_score(model, device, train_loader, test_loader, 'PGD100')
     fgsm_adv_auc, fgsm_adv_auc_in, fgsm_adv_auc_out, feature_space = get_adv_score(model, device, train_loader, test_loader, 'FGSM')
-    log('PGD-10 ADV AUROC is: {}, FGSM ADV AUROC is: {}'.format(0, fgsm_adv_auc))
-    log('IN: PGD-10 ADV AUROC is: {}, FGSM ADV AUROC is: {}'.format(0, fgsm_adv_auc_in))
-    log('OUT: PGD-10 ADV AUROC is: {}, FGSM ADV AUROC is: {}'.format(0, fgsm_adv_auc_out))
+    log('PGD-10 ADV AUROC is: {}, FGSM ADV AUROC is: {}'.format(pgd_10_adv_auc, fgsm_adv_auc))
+    log('IN: PGD-10 ADV AUROC is: {}, FGSM ADV AUROC is: {}'.format(pgd_10_adv_auc_in, fgsm_adv_auc_in))
+    log('OUT: PGD-10 ADV AUROC is: {}, FGSM ADV AUROC is: {}'.format(pgd_10_adv_auc_out, fgsm_adv_auc_out))
 
 def run_epoch(model, train_loader, optimizer, criterion, device, ewc, ewc_loss):
     running_loss = 0.0
