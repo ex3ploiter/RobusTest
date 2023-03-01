@@ -75,7 +75,8 @@ def get_adv_score(model, device, train_loader, test_loader, attack_type):
             imgs = imgs.to(device)
             _, features = model(imgs)
             train_feature_space.append(features.detach().cpu())
-        train_feature_space = torch.cat(train_feature_space, dim=0).contiguous().cpu().numpy()
+        # train_feature_space = torch.cat(train_feature_space, dim=0).contiguous().cpu().numpy()
+        train_feature_space = train_feature_space[0].contiguous().cpu().numpy()
 
     mean_train = torch.mean(torch.Tensor(train_feature_space), axis=0)
 
@@ -143,7 +144,8 @@ def get_score(model, device, train_loader, test_loader, attack_type):
             imgs = imgs.to(device)
             _, features = model(imgs)
             train_feature_space.append(features.detach().cpu())
-        train_feature_space = torch.cat(train_feature_space, dim=0).contiguous().cpu().numpy()
+        # train_feature_space = torch.cat(train_feature_space, dim=0).contiguous().cpu().numpy()
+        train_feature_space = train_feature_space[0].contiguous().cpu().numpy()
 
     mean_train = torch.mean(torch.Tensor(train_feature_space), axis=0)
 
